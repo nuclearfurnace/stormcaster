@@ -1,0 +1,9 @@
+<div class="row">
+  <div class="col-sm">
+    <div class="jumbotron alert-danger">
+      <h3>Ouchies!</h3>
+      <p>We're super sorry, but we hit an error:</p>
+      <p><%= @error %></p>
+    </div>
+  </div>
+</div>

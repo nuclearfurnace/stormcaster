@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-sm">
+    <div class="alert <%= @team_color %>">
+      <%= @event_time %> - <%= gettext "%{team} takes %{camp} camp.", team: @team_name, camp: @camp_type %>
+    </div>
+  </div>
+</div>

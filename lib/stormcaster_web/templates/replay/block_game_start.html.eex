@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-sm">
+    <div class="alert alert-light">
+      0:00 - <%= gettext "Game has started." %>
+    </div>
+  </div>
+</div>

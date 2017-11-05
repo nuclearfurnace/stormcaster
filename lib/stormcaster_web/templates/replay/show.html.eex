@@ -1,0 +1,7 @@
+<div class="row">
+  <div class="col-sm text-center">
+    <%= for e <- @timeline do %>
+      <%= render_replay_event(e) %>
+    <% end %>
+  </div>
+</div>
