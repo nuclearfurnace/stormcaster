@@ -41,7 +41,9 @@ defmodule Stormcaster.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:arc, "~> 0.8.0"}
+      {:gen_stage, "~> 0.12.2"},
+      {:arc, "~> 0.8.0"},
+      {:porcelain, "~> 2.0"}
     ]
   end
 

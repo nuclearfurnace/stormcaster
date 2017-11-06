@@ -12,8 +12,8 @@ defmodule Stormcaster.Application do
       supervisor(Stormcaster.Repo, []),
       # Start the endpoint when the application starts
       supervisor(StormcasterWeb.Endpoint, []),
-      # Start your own worker by calling: Stormcaster.Worker.start_link(arg1, arg2, arg3)
-      # worker(Stormcaster.Worker, [arg1, arg2, arg3]),
+      worker(Stormcaster.Processor.Producer, []),
+      worker(Stormcaster.Processor.Consumer, [])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

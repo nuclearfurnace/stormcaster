@@ -5,7 +5,6 @@ defmodule StormcasterWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
-    plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
 
@@ -14,14 +13,15 @@ defmodule StormcasterWeb.Router do
   end
 
   scope "/", StormcasterWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
-    resources "/replays", ReplayController
+    get "/replays/{id}", ReplayController, :show
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", StormcasterWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", StormcasterWeb do
+     pipe_through :api
+
+     post "/replays", ReplayController, :create
+  end
 end

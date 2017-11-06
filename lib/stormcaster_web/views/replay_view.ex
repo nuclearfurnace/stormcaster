@@ -5,7 +5,7 @@ defmodule StormcasterWeb.ReplayView do
     _render_replay_event(event.event_type, event)
   end
 
-  def _render_replay_event("game_start", event) do
+  def _render_replay_event("game_start", _event) do
     render "block_game_start.html"
   end
 

@@ -60,3 +60,7 @@ config :stormcaster, Stormcaster.Repo,
 # Configure our Arc settings.
 config :arc,
   storage: Arc.Storage.Local
+
+# Configure storm-parser location.
+config :stormcaster,
+  storm_parser_bin: "/Users/toby/src/rs-storm-parser/target/release/storm-parser"
