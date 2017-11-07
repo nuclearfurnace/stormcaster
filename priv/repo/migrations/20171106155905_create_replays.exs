@@ -6,7 +6,7 @@ defmodule Stormcaster.Repo.Migrations.CreateReplays do
       add :signature, :string
       add :location, :text
       add :processed_at, :naive_datetime, null: true
-      add :result, :integer, default: -1
+      add :result, :string, default: "uploaded"
 
       timestamps()
     end

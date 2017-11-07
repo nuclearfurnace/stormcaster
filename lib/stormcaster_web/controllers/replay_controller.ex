@@ -18,28 +18,24 @@ defmodule StormcasterWeb.ReplayController do
     # since we don't want to store it yet and bother to further process it
     # if we're pretty sure that it's fake.
     case get_basic_replay_validity(replay) do
-      {:error, :not_valid} -> conn |> put_status(400) |> json(%{"status" => "error", "errors" => ["replay invalid"]})
+      {:error, :not_valid} -> conn |> put_status(400) |> json(%{status: "error", errors: ["replay invalid"]})
       {:ok, uuid} ->
         case enqueue_replay_for_processing(replay, uuid) do
-          {:ok, filename} -> conn |> json(%{"status" => "success", "data" => %{"uuid" => uuid, "filename" => filename}})
-          {:error, e} -> conn |> put_status(500) |> json(%{"status" => "error", "errors" => ["failed to store replay", e]})
+          {:ok, filename} -> conn |> json(%{status: "success", data: %{uuid: uuid, filename: filename}})
+          {:error, e} -> conn |> put_status(500) |> json(%{status: "error", errors: ["failed to store replay", e]})
         end
     end
   end
 
   defp get_basic_replay_validity(%Plug.Upload{path: path}) do
-    result = Stormcaster.Parser.do_validity_check(path)
-    case result.status do
-      0 -> {:ok, result.out |> String.trim}
-      _ -> {:error, :not_valid}
-    end
+    Stormcaster.Parser.validate_replay(path)
   end
 
   defp enqueue_replay_for_processing(replay, uuid) do
     # Gotta move the file to durable storage for processing.
     case ReplayFile.store({replay, uuid}) do
       {:ok, stored} ->
-        changeset = Replay.changeset(%Replay{}, %{signature: uuid, location: stored, result: -1})
+        changeset = Replay.changeset(%Replay{}, %{signature: uuid, location: stored, result: "uploaded"})
         case Repo.insert(changeset) do
           {:ok, _} ->
             Stormcaster.Processor.process(uuid)

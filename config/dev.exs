@@ -63,4 +63,4 @@ config :arc,
 
 # Configure storm-parser location.
 config :stormcaster,
-  storm_parser_bin: "/Users/toby/src/rs-storm-parser/target/release/storm-parser"
+  storm_parser_bin: "../rs-storm-parser/target/release/storm-parser"

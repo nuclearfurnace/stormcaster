@@ -1,6 +1,8 @@
 defmodule Stormcaster.Replay do
   use Ecto.Schema
+  import Ecto.Query
   import Ecto.Changeset
+  alias Stormcaster.Repo
   alias Stormcaster.Replay
 
 
@@ -8,9 +10,13 @@ defmodule Stormcaster.Replay do
     field :signature, :string
     field :location, :string
     field :processed_at, :naive_datetime
-    field :result, :integer
+    field :result, :string
 
     timestamps()
+  end
+
+  def by_uuid(uuid) do
+    Replay |> where(uuid: ^uuid) |> Repo.one
   end
 
   @doc false
