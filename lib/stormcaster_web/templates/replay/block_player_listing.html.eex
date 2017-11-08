@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col blue-team">
+    <div class="row">
+    <%= for player <- Enum.filter(@players, fn p -> p.team_id == 0 end) do %>
+      <div class="hero-image-container text-left">
+        <img class="hero-image" src="<%= static_path(@conn, get_hero_image_path(player)) %>" />
+        <p><%= player.name %></p>
+      </div>
+    <% end %>
+    </div>
+    <div class="row">
+      <hr>
+      <h3 class="container-fluid text-center team-name">Blue Team</h3>
+    </div>
+  </div>
+  <div class="col red-team">
+    <div class="row">
+    <%= for player <- Enum.filter(@players, fn p -> p.team_id == 1 end) do %>
+      <div class="hero-image-container text-right">
+        <img class="hero-image" src="<%= static_path(@conn, get_hero_image_path(player)) %>" />
+        <p><%= player.name %></p>
+      </div>
+    <% end %>
+    </div>
+  </div>
+</div>

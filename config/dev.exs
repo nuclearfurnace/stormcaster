@@ -61,6 +61,9 @@ config :stormcaster, Stormcaster.Repo,
 config :arc,
   storage: Arc.Storage.Local
 
+config :stormcaster,
+  replay_storage_dir: {:stormcaster, "uploads/replays"}
+
 # Configure storm-parser location.
 config :stormcaster,
   storm_parser_bin: "../rs-storm-parser/target/release/storm-parser"

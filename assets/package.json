@@ -4,7 +4,8 @@
   "scripts": {
     "deploy": "NODE_ENV=production webpack -p --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "storm-extract": "storm-extract"
   },
   "dependencies": {
     "phoenix": "file:../deps/phoenix",
@@ -16,6 +17,8 @@
     "clean-css-brunch": "2.10.0",
     "laravel-mix": "^1.5.1",
     "uglify-js-brunch": "2.10.0",
-    "webpack": "^3.8.1"
+    "webpack": "^3.8.1",
+    "bootstrap": "4.0.0-beta.2",
+    "storm-extract": "^1.0.3"
   }
 }

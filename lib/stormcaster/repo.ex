@@ -19,7 +19,7 @@ defmodule Stormcaster.Repo do
   def fetch_one(schema, clauses \\ []) do
     case get_by(schema, clauses, []) do
       nil -> {:error, nil}
-      [x] -> {:ok, x}
+      x -> {:ok, x}
     end
   end
 end

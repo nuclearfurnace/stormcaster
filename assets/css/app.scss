@@ -1,2 +1,5 @@
 /* This file is for your main application css. */
-@import "bootstrap.css"
+@import "color_overrides";
+@import "basic.css";
+
+@import "node_modules/bootstrap/scss/bootstrap";

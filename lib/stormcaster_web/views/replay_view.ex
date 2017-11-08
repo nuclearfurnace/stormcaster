@@ -46,8 +46,18 @@ defmodule StormcasterWeb.ReplayView do
     end
   end
 
+  def get_hero_image_path(player) do
+    listed_name = player.hero |> String.downcase |> String.replace(~r/[^a-zA-Z]/, "")
+    real_name = case listed_name do
+      "sonya" -> "femalebarbarian"
+      "liming" -> "wizard"
+      name -> name
+    end
+
+    "/images/heroes/storm_ui_ingame_hero_leaderboard_#{real_name}.png"
+  end
+
   def get_event_detail(event, key) do
-    IO.inspect event.event_details
     decoded = Poison.decode!(event.event_details)
     decoded[key]
   end

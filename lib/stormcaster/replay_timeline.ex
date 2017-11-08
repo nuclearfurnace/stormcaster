@@ -17,17 +17,14 @@ defmodule Stormcaster.ReplayTimeline do
     timestamps()
   end
 
+  def by_replay_id(replay_id) do
+    ReplayTimeline |> where(replay_id: ^replay_id) |> order_by([r], asc: r.event_time) |> Repo.fetch
+  end
+
   @doc false
   def changeset(%ReplayTimeline{} = replay_timeline, attrs) do
     replay_timeline
     |> cast(attrs, [:replay_id, :event_time, :event_type, :team_id, :event_details])
-    |> validate_required([:replay_id, :event_time, :event_type, :team_id, :event_details])
-  end
-
-  def get_timeline(replay_id) do
-    case ReplayTimeline |> where(replay_id: ^replay_id) |> order_by([r], asc: r.event_time) |> Repo.fetch do
-      {:error, :no_rows} -> {:error, gettext("the given replay doesn't exist!")}
-      {:ok, rows} -> {:ok, rows}
-    end
+    |> validate_required([:replay_id, :event_time, :event_type])
   end
 end

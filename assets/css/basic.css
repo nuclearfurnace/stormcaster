@@ -1,0 +1,17 @@
+.navbar-override {
+  color: #ccf;
+  background: linear-gradient(to bottom,#46018c,#0200a1);
+}
+
+.hero-image {
+  border: 2px solid #7a7acc;
+}
+
+.hero-image-container {
+  padding-right: 0.5rem;
+}
+
+.team-name {
+  font-size: 2rem;
+  font-weight: normal;
+}

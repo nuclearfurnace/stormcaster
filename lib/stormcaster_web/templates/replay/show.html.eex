@@ -1,7 +1,9 @@
+<%= render StormcasterWeb.ReplayView, "block_player_listing.html", conn: @conn, replay: @replay, players: @players %>
+
 <div class="row">
+  <%= for e <- @timeline do %>
   <div class="col-sm text-center">
-    <%= for e <- @timeline do %>
-      <%= render_replay_event(e) %>
-    <% end %>
+    <%= render_replay_event(e) %>
   </div>
+  <% end %>
 </div>

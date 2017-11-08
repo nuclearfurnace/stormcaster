@@ -2,12 +2,15 @@ defmodule StormcasterWeb.ReplayController do
   use StormcasterWeb, :controller
   alias Stormcaster.Repo
   alias Stormcaster.Replay
+  alias Stormcaster.ReplayPlayer
   alias Stormcaster.ReplayTimeline
   alias Stormcaster.ReplayFile
 
   def show(conn, %{"id" => replay_id}) do
-    with {:ok, replay_timeline} <- ReplayTimeline.get_timeline(replay_id) do
-      render(conn, "show.html", timeline: replay_timeline)
+    with {:ok, replay} <- Replay.by_replay_id(replay_id),
+         {:ok, players} <- ReplayPlayer.by_replay_id(replay_id),
+         {:ok, timeline} <- ReplayTimeline.by_replay_id(replay_id) do
+      render(conn, "show.html", replay: replay, players: players, timeline: timeline)
     else
       {:error, errmsg} -> render(conn, "error.html", error: errmsg)
     end
@@ -33,6 +36,7 @@ defmodule StormcasterWeb.ReplayController do
 
   defp enqueue_replay_for_processing(replay, uuid) do
     # Gotta move the file to durable storage for processing.
+    replay = %Plug.Upload{replay | filename: "replay.StormReplay"}
     case ReplayFile.store({replay, uuid}) do
       {:ok, stored} ->
         changeset = Replay.changeset(%Replay{}, %{signature: uuid, location: stored, result: "uploaded"})

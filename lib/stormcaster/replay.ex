@@ -15,8 +15,12 @@ defmodule Stormcaster.Replay do
     timestamps()
   end
 
-  def by_uuid(uuid) do
-    Replay |> where(uuid: ^uuid) |> Repo.one
+  def by_replay_id(replay_id) do
+    Replay |> where(id: ^replay_id) |> Repo.fetch_one
+  end
+
+  def by_signature(uuid) do
+    Replay |> where(signature: ^uuid) |> Repo.fetch_one
   end
 
   @doc false
