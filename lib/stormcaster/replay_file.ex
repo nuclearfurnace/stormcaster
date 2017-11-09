@@ -13,7 +13,6 @@ defmodule Stormcaster.ReplayFile do
   end
 
   def filename(_version, {file, scope}) do
-    IO.inspect scope
     "#{scope}/#{file.file_name}"
   end
 end

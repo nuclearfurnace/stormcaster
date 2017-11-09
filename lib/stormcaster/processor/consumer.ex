@@ -24,30 +24,26 @@ defmodule Stormcaster.Processor.Consumer do
   end
 
   defp process_replay(uuid) do
-    replay = Replay.by_signature(uuid)
+    {:ok, replay} = Replay.by_signature(uuid)
     replay_url = ReplayFile.url({"replay.StormReplay", uuid})
 
     case Stormcaster.Parser.parse_replay(replay_url) do
       {:error, e} ->
         changeset = Replay.changeset(replay, %{processed_at: NaiveDateTime.utc_now, result: "error"})
         Repo.update(changeset)
-        IO.inspect e
       {:ok, replay_data} -> extract_replay_details(replay, replay_data)
     end
   end
 
   defp extract_replay_details(replay, replay_data) do
-    #result = Repo.transaction(fn ->
+    result = Repo.transaction(fn ->
        extract_players_from_replay(replay, replay_data)
        extract_timeline_from_replay(replay, replay_data)
-       #end)
-       #IO.inspect result
+    end)
   end
 
   defp extract_players_from_replay(replay, replay_data) do
     for player <- replay_data["players"] do
-      IO.inspect "got player with name '#{player["name"]}'"
-
       updated_attrs = %{
         "replay_id" => replay.id,
         "hero" => player["character"],
@@ -59,7 +55,7 @@ defmodule Stormcaster.Processor.Consumer do
 
       player = Map.merge(player, updated_attrs)
       changeset = ReplayPlayer.changeset(%ReplayPlayer{}, player)
-      IO.inspect Repo.insert(changeset)
+      Repo.insert(changeset)
     end
   end
 
@@ -67,6 +63,6 @@ defmodule Stormcaster.Processor.Consumer do
     # Create an implicit game_start event.
     event = %{"replay_id" => replay.id, "event_type" => "game_start", "event_time" => 0}
     changeset = ReplayTimeline.changeset(%ReplayTimeline{}, event)
-    IO.inspect Repo.insert(changeset)
+    Repo.insert(changeset)
   end
 end
