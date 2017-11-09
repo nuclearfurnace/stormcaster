@@ -1,17 +1,56 @@
+@font-face {
+  font-family: ExoRegular;
+  src: url('/fonts/exo-regular.otf');
+}
+
 .navbar-override {
   color: #ccf;
   background: linear-gradient(to bottom,#46018c,#0200a1);
 }
 
-.hero-image {
-  border: 2px solid #7a7acc;
+.hero-container {
+  margin-bottom: 2px;
 }
 
-.hero-image-container {
-  padding-right: 0.5rem;
+.hero-container:last-child {
+  margin-bottom: 0;
+}
+
+.hero-container-blue {
+  border-bottom: 1px solid #2f4994;
+}
+
+.hero-container-red {
+  border-bottom: 1px solid #b1494f;
+  text-align: right;
 }
 
 .team-name {
   font-size: 2rem;
-  font-weight: normal;
+  font-weight: bold;
+}
+
+.hero-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.hero-container-blue > .hero-text {
+  padding-left: 0.8rem !important;
+}
+
+.hero-container-red > .hero-text {
+  padding-right: 0.8rem !important;
+}
+
+.team-container {
+  font-family: 'ExoRegular';
+}
+
+.blue-team {
+  background-color: rgba(14, 49, 150, 0.8);
+}
+
+.red-team {
+  background-color: rgba(173, 31, 39, 0.8);
 }
